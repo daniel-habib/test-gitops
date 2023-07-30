@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: app1
+  name: test-app1
   namespace: argocd
 spec:
   destination:
@@ -15,9 +15,9 @@ spec:
     helm:
       values: |
         replicaCount: 0
-        fullnameOverride: app1
+        fullnameOverride: test-app1
         image:
-          repository: docker.pkg.github.com/daniel-habib/app1
+          repository: docker.pkg.github.com/daniel-habib/test-app1
           pullPolicy: Always
           tag: TO-CHANGE
 
@@ -33,7 +33,7 @@ spec:
 
         externalSecret:
           enabled: true
-          secretKey: /config/dev/app1
+          secretKey: /config/dev/test-app1
   syncPolicy:
     automated:
       selfHeal: true
