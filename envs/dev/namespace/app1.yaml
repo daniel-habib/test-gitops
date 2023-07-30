@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app1
+  namespace: argocd
+spec:
+  destination:
+    namespace: namespace
+    server: https://kubernetes.default.svc
+  project: namespace
+  source:
+    path: charts/my-service
+    repoURL: https://github.com/daniel-habib/test-gitops.git
+    targetRevision: helm-0.0.1-rc
+    helm:
+      values: |
+        replicaCount: 0
+        fullnameOverride: app1
+        image:
+          repository: docker.pkg.github.com/daniel-habib/app1
+          pullPolicy: Always
+          tag: TO-CHANGE
+
+        imagePullSecrets: 
+          - name: regcred
+
+        serviceAccount:
+          create: false
+          name: my-service-account
+
+        service:
+          enabled: false
+
+        externalSecret:
+          enabled: true
+          secretKey: /config/dev/app1
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
