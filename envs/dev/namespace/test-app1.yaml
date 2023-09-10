@@ -19,7 +19,7 @@ spec:
         image:
           repository: docker.pkg.github.com/daniel-habib/test-app1
           pullPolicy: Always
-          tag: 0a82a969f85ce17a4cc52fdc154e2f913d4514d5
+          tag: "bdebff9e332b11ee98315b8388455e141dc34577"
 
         imagePullSecrets: 
           - name: regcred
